@@ -11,11 +11,11 @@ for i = 1:num_breaks
     break_points(i) = input(['Enter the position of break point ' num2str(i) ': ']);
 end
 
-break_points = [t_start, sort(break_points), t_end]; % Include start and end in segments
+break_points = [startingTime, sort(break_points), t_end]; % Include start and end in segments
 
-total_samples = round(Fs * (t_end - t_start));
+total_samples = round(Fs * (t_end - startingTime));
 signal = zeros(1, total_samples);
-time = linspace(t_start, t_end, total_samples);
+time = linspace(startingTime, t_end, total_samples);
 
 current_index = 1;
 
