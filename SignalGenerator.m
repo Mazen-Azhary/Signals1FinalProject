@@ -57,29 +57,26 @@ for i = 1:length(break_points)-1
             error('Invalid choice!');
     end
     
-    % Fill the preallocated arrays
     signal(current_index:current_index + region_samples - 1) = region_signal;
     time(current_index:current_index + region_samples - 1) = t;
-    
-    % Update the index tracker
     current_index = current_index + region_samples;
 end
 
-% Step 3: Display Original Signal
+%displaying the original signal
 figure;
-plot(time, signal, 'b', 'LineWidth', 1.5);
+plot(time, signal);
 title('Original Signal');
 xlabel('Time (s)');
 ylabel('Amplitude');
 grid on;
 
-% Step 4: Signal Operations
+%modifying the signal
 disp('Choose an operation to perform on the signal:');
-disp('1. Amplitude Scaling');
-disp('2. Time Reversal');
-disp('3. Time Shift');
-disp('4. Expanding the Signal');
-disp('5. Compressing the Signal');
+disp('1- Amplitude Scaling');
+disp('2- Time Reversal');
+disp('3- Time Shift');
+disp('4- Expanding the Signal');
+disp('5- Compressing the Signal');
 operation = input('Enter your choice (1-6): ');
 
 switch operation
@@ -98,7 +95,7 @@ switch operation
         compress = input('Enter compressing value: ');
         time = time / compress;
     otherwise
-        error('Invalid choice!');
+        error('invalid choice');
 end
 %displaying the signal after modifications
 figure;
