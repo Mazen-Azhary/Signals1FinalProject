@@ -3,15 +3,15 @@ Fs = input('enter sampling frequency: ');%sampling frequency
 startingTime = input('enter the start of time axis: ');
 endingTime = input('enter end of time axis: ');
 numberOfBreakPoints = input('enter the number of break points: ');
-break_points = zeros(1, numberOfBreakPoints);% a row vector is like an array 
+breakPtsArr = zeros(1, numberOfBreakPoints);% a row vector is like an array 
 
 
 for i = 1:numberOfBreakPoints%specify positions of break points which separate signals regions
     %fprintf('enter the position of break point ' num2str(i) ': ');
-    break_points(i) = input(['enter the position of break point ' num2str(i) ': ']);
+    breakPtsArr(i) = input(['enter the position of break point ' num2str(i) ': ']);
 end
 
-break_points = [startingTime, sort(break_points), endingTime]; % Include start and end in segments
+breakPtsArr = [startingTime, sort(breakPtsArr), endingTime]; 
 
 total_samples = round(Fs * (endingTime - startingTime));
 signal = zeros(1, total_samples);
@@ -19,11 +19,11 @@ time = linspace(startingTime, endingTime, total_samples);
 
 current_index = 1;
 
-for i = 1:length(break_points)-1
+for i = 1:length(breakPtsArr)-1
     % Determine the number of samples for the current region
-    region_samples = round(Fs * (break_points(i+1) - break_points(i)));
-    t = linspace(break_points(i), break_points(i+1), region_samples);
-    fprintf('Region %d: Time [%g, %g]\n', i, break_points(i), break_points(i+1));
+    region_samples = round(Fs * (breakPtsArr(i+1) - breakPtsArr(i)));
+    t = linspace(breakPtsArr(i), breakPtsArr(i+1), region_samples);
+    fprintf('Region %d: Time [%g, %g]\n', i, breakPtsArr(i), breakPtsArr(i+1));
     
     disp('Choose signal type for this region:');
     disp('1. DC signal');
