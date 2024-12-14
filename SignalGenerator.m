@@ -1,19 +1,21 @@
 
-Fs = input('Enter the sampling frequency: ');%sampling frequency
-startingTime = input('Enter the start of time scale: ');
-endingTime = input('Enter the end of time scale: ');
-num_breaks = input('Enter the number of break points: ');
-break_points = zeros(1, num_breaks);
+Fs = input('enter sampling frequency: ');%sampling frequency
+startingTime = input('enter the start of time axis: ');
+endingTime = input('enter end of time axis: ');
+numberOfBreakPoints = input('enter the number of break points: ');
+break_points = zeros(1, numberOfBreakPoints);% a row vector is like an array 
 
-for i = 1:num_breaks
-    break_points(i) = input(['Enter the position of break point ' num2str(i) ': ']);
+
+for i = 1:numberOfBreakPoints%specify positions of break points which separate signals regions
+    %fprintf('enter the position of break point ' num2str(i) ': ');
+    break_points(i) = input(['enter the position of break point ' num2str(i) ': ']);
 end
 
-break_points = [startingTime, sort(break_points), t_end]; % Include start and end in segments
+break_points = [startingTime, sort(break_points), endingTime]; % Include start and end in segments
 
-total_samples = round(Fs * (t_end - startingTime));
+total_samples = round(Fs * (endingTime - startingTime));
 signal = zeros(1, total_samples);
-time = linspace(startingTime, t_end, total_samples);
+time = linspace(startingTime, endingTime, total_samples);
 
 current_index = 1;
 
