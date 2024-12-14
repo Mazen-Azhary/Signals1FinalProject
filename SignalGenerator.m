@@ -1,5 +1,3 @@
-clc;
-clear;
 
 Fs = input('Enter the sampling frequency: ');%sampling frequency
 startingTime = input('Enter the start of time scale: ');
@@ -82,33 +80,29 @@ disp('2. Time Reversal');
 disp('3. Time Shift');
 disp('4. Expanding the Signal');
 disp('5. Compressing the Signal');
-disp('6. None');
 operation = input('Enter your choice (1-6): ');
 
 switch operation
-    case 1 % Amplitude Scaling
-        scale_value = input('Enter scale value: ');
-        signal = scale_value * signal;
-    case 2 % Time Reversal
+    case 1 
+        scale = input('Enter scale value: ');
+        signal = scale * signal;
+    case 2 
         time = -time;
-    case 3 % Time Shift
-        shift_value = input('Enter shift value: ');
-        time = time + shift_value;
-    case 4 % Expanding the Signal
-        expand_value = input('Enter expanding value: ');
-        time = time * expand_value;
-    case 5 % Compressing the Signal
-        compress_value = input('Enter compressing value: ');
-        time = time / compress_value;
-    case 6 % None
-        disp('No operation performed.');
+    case 3 
+        shift = input('Enter shift value: ');
+        time = time + shift;
+    case 4 
+        expand = input('Enter expanding value: ');
+        time = time * expand;
+    case 5 
+        compress = input('Enter compressing value: ');
+        time = time / compress;
     otherwise
         error('Invalid choice!');
 end
-
-% Step 5: Display Modified Signal
+%displaying the signal after modifications
 figure;
-plot(time, signal, 'r', 'LineWidth', 1.5);
+plot(time, signal);
 title('Modified Signal');
 xlabel('Time (s)');
 ylabel('Amplitude');
