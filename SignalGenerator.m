@@ -13,17 +13,18 @@ end
 
 breakPtsArr = [startingTime, sort(breakPtsArr), endingTime]; 
 
-total_samples = round(Fs * (endingTime - startingTime));
-signal = zeros(1, total_samples);
-time = linspace(startingTime, endingTime, total_samples);
+approximatedNumOfSamples = round(Fs * (endingTime - startingTime));
+signal = zeros(1, approximatedNumOfSamples);%y axis to be plotted
+time = linspace(startingTime, endingTime, approximatedNumOfSamples);%x axis to be plotted
 
-current_index = 1;
+currentIndexInLoop = 1;
 
 for i = 1:length(breakPtsArr)-1
     % Determine the number of samples for the current region
-    region_samples = round(Fs * (breakPtsArr(i+1) - breakPtsArr(i)));
-    t = linspace(breakPtsArr(i), breakPtsArr(i+1), region_samples);
-    fprintf('Region %d: Time [%g, %g]\n', i, breakPtsArr(i), breakPtsArr(i+1));
+    numOfSamplesInCurrentRegion = round(Fs * (breakPtsArr(i+1) - breakPtsArr(i)));
+    t = linspace(breakPtsArr(i), breakPtsArr(i+1), numOfSamplesInCurrentRegion);
+    %fprintf('hi');
+    fprintf('interval %d: Time [%g, %g]\n', i, breakPtsArr(i), breakPtsArr(i+1));
     
     disp('Choose signal type for this region:');
     disp('1. DC signal');
@@ -59,9 +60,9 @@ for i = 1:length(breakPtsArr)-1
             error('Invalid choice!');
     end
     
-    signal(current_index:current_index + region_samples - 1) = region_signal;
-    time(current_index:current_index + region_samples - 1) = t;
-    current_index = current_index + region_samples;
+    signal(currentIndexInLoop:currentIndexInLoop + numOfSamplesInCurrentRegion - 1) = region_signal;
+    time(currentIndexInLoop:currentIndexInLoop + numOfSamplesInCurrentRegion - 1) = t;
+    currentIndexInLoop = currentIndexInLoop + numOfSamplesInCurrentRegion;
 end
 
 %displaying the original signal
