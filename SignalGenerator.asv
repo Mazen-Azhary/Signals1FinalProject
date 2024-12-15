@@ -8,10 +8,12 @@ break_points = zeros(1, numberOfBreakPoints);% a row vector is like an array
 >>>>>>> 5ed8ea1c18d882f6aa4b7e86e5706a8b3709b3f6
 
 
-for i = 1:numberOfBreakPoints%specify positions 
-    break_points(i) = input(['Enter the position of break point ' num2str(i) ': ']);
+for i = 1:numberOfBreakPoints%specify positions of break points which separate signals regions
+    %fprintf('enter the position of break point ' num2str(i) ': ');
+    break_points(i) = input(['enter the position of break point ' num2str(i) ': ']);
 end
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 break_points = [startingTime, sort(break_points), t_end]; % Include start and end in segments
 
@@ -20,6 +22,9 @@ signal = zeros(1, total_samples);
 time = linspace(startingTime, t_end, total_samples);
 =======
 break_points = [startingTime, sort(break_points), endingTime]; % Include start and end in segments
+=======
+break_points = [startingTime, sort(break_points), endingTime]; 
+>>>>>>> Stashed changes
 
 total_samples = round(Fs * (endingTime - startingTime));
 signal = zeros(1, total_samples);
