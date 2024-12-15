@@ -1,6 +1,6 @@
 t_start = 0;
 t_end = pi;
-n = -5:5;
+n = -4:4;
 j = 1i;
 x = @(t) exp(-t);
 
