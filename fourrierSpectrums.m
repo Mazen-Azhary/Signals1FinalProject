@@ -1,16 +1,24 @@
-To = pi;%% periodic time
-Wo = 2*pi/To;
-n = linspace(-4, 4, 9);
-an = (0.6 ./ (1 + (4 * n .^ 2)));
-%The .^ operator ensures element-wise squaring of 𝑛, and the ./ operator ensures element-wise division.
-bn = 0.6 * (2 * n ./ (1 + 4 * n .^ 2));
-cn = ((an .^ 2 + bn .^ 2) .^ (1/2));
-theta = atan(-2 * n);%tan inverse
+t_start = 0;
+t_end = pi;
+n = -5:5;
+j = 1i;
+x = @(t) exp(-t);
+
+Dn_val = zeros(size(n));
+for k = 1:length(n)
+    Dn_val(k) = (1/pi) * integral(@(t) x(t) .* exp(-2 * n(k) * t * j), t_start, t_end);
+end
+
 figure;
-subplot(2,1,1)
-stem(n , abs(cn))%discrete plot 
+stem(n, abs(Dn_val));
+title('Magnitude of Dn');
+xlabel('n');
+ylabel('|Dn|');
+grid on;
 
-subplot(2,1,2)
-stem(n , theta)
-
-
+figure;
+stem(n, angle(Dn_val)./(pi).*(180));
+title('Angle of Dn');
+xlabel('n');
+ylabel('Angle(Dn)');
+grid on;
