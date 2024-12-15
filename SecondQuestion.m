@@ -1,14 +1,12 @@
-function y = Sinc(x)
-    y = ones(size(x));
-    idx = x ~= 0; 
-    y(idx) = sin(pi * x(idx)) ./ (pi * x(idx));
-end
-t = linspace(-4000, 4000, 5001);
-fs = 1 / (t(2) - t(1)); 
-mt = Sinc(10^(-3) * t).^2;
-
-ft = fftshift(fft(mt)) / length(mt);
-frequencies = linspace(-fs/2, fs/2, length(ft));
+fs =1000;
+ts=1/fs;
+t = linspace(-6000, 6000, fs*12000);
+x=(10^-3)*t;
+mt = (sin(x)./x).^2;
+ft = (ts)*fftshift(fft(mt));
+n=length(mt);
+frequencies = (-n/2:(n/2-1))*(fs/n);
+w=2*pi*frequencies;
 
 figure;
 subplot(2, 1, 1);
@@ -17,45 +15,31 @@ grid on;
 xlabel('t');
 ylabel('m(t)');
 title('Time Domain');
-
 subplot(2, 1, 2);
-plot(frequencies, abs(ft));
-xlim([-0.01 0.01]);
+plot(w, abs(ft));
+xlim([-0.004 0.004]);
 grid on;
-xlabel('Frequency (Hz)');
+xlabel('Frequency (rad/sec)');
 ylabel('|M(f)|');
 title('Fourier Transform');
 
-% Define time vector
-t = linspace(-0.05, 0.05, 1000);
-
-% Define the signal r(t)
-r = Sinc(10^(-3) * t).^2 .* cos(2*pi*1e5*t);
-
-% Compute the sampling frequency
-fs = 1 / (t(2) - t(1));  % Sampling frequency
-
-% Fourier Transform and shift
-ft = fftshift(fft(r)); % Fourier transform and shift
-
-% Frequency axis
-frequencies = linspace(-fs/2, fs/2, length(ft)); % Frequency axis
-
-% Plot r(t) and its Fourier Transform
+y=2*pi*(10^5)*t;
+rt=mt.*cos(y);
+n=length(rt);
+ft = (ts)*fftshift(fft(rt));
+frequencies = (-n/2:(n/2-1))*(fs/n);
+w=n*frequencies*pi; %de el ghalta el mafrood 2 mesh n, bas shoof eh ghalat tany
 figure;
-
-% Time domain plot
-subplot(2,1,1);
-plot(t, r);
-title('Time Domain Signal r(t)');
-xlabel('Time (s)');
-ylabel('Amplitude');
+subplot(2, 1, 1);
+plot(t, rt);
 grid on;
-
-% Frequency domain plot
-subplot(2,1,2);
-plot(frequencies, abs(ft));
-title('Magnitude of Fourier Transform of r(t)');
-xlabel('Frequency (Hz)');
-ylabel('|R(f)|');
+xlabel('t');
+ylabel('m(t)');
+title('Time Domain');
+subplot(2, 1, 2);
+plot(w, abs(ft));
+xlim([-5e5,5e5]);
 grid on;
+xlabel('Frequency (rad/sec)');
+ylabel('|M(f)|');
+title('Fourier Transform');

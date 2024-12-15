@@ -41,11 +41,14 @@ for i = 1:length(break_points)-1
             slope = input('Enter slope: ');
             intercept = input('Enter intercept: ');
             region_signal = slope * t + intercept;
-        case 3 % General order polynomial
-            amplitude = input('Enter amplitude: ');
-            power = input('Enter power: ');
-            intercept = input('Enter intercept: ');
-            region_signal = amplitude * t.^power + intercept;
+         case 3 % General order polynomial
+             % Input the highest power
+             highest_power = input('Enter the highest power: ');
+             region_signal=0; 
+            for power=highest_power:-1:0
+            amplitude = input(['Enter the amplitude for power ', num2str(power), ': ']);
+             region_signal = region_signal + amplitude * t.^power;
+            end
         case 4 % Exponential signal
             amplitude = input('Enter amplitude: ');
             exponent = input('Enter exponent: ');
@@ -79,7 +82,7 @@ disp('2- Time Reversal');
 disp('3- Time Shift');
 disp('4- Expanding the Signal');
 disp('5- Compressing the Signal');
-operation = input('Enter your choice (1-6): ');
+operation = input('Enter your choice (1-5): ');
 
 switch operation
     case 1 
